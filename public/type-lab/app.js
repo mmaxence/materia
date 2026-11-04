@@ -231,7 +231,7 @@ function initializeBench() {
       number.className = "number";
       number.textContent = String(experiments.indexOf(e) + 1).padStart(2, "0");
       const name = document.createElement("span");
-      name.textContent = e.name + (isElementMode(e.mode) ? " · Desktop experiment" : "");
+      name.textContent = e.name + (e.mode === 63 ? " · Desktop experiment" : "");
       button.append(number, name);
       if (saved.has(e.mode)) {
         const star = document.createElement("span");
@@ -260,11 +260,11 @@ function initializeBench() {
     }
     $("studio-preset").value = "";
     const mobile = matchMedia("(pointer: coarse), (max-width: 767px)").matches;
-    const desktopOnly = mobile && isElementMode(e.mode);
+    const desktopOnly = mobile && e.mode === 63;
     $("element-mobile-note").hidden = !desktopOnly;
     const changedEngine =
       stacking || !renderer || engineKey(e.mode) !== engineKey(current.mode) ||
-      (mobile && (isElementMode(e.mode) || isElementMode(current.mode)));
+      (mobile && (e.mode === 63 || current.mode === 63));
     stacking = false;
     layerEditor.reset();
     document.querySelector("#bench").classList.remove("has-stack");
