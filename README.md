@@ -20,7 +20,7 @@ Open http://127.0.0.1:4399/. GitHub Pages serves `public/type-lab` through Actio
 
 I build small tools for a more expressive web. **Materia** explores living typography; **[Solids](https://mmaxence.github.io/solids/)** brings lightweight interactive 3D forms to the browser.
 
-[Personal site](https://mmaxence.github.io/) · [GitHub](https://github.com/mmaxence)
+[Personal site](https://mmaxence.me/) · [GitHub](https://github.com/mmaxence)
 
 ## Status
 
