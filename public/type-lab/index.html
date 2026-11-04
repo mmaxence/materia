@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8" /><meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  /><title>Materia — interactive text effects</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="./showcase.css?v=water-sequence" />
+  <link rel="stylesheet" href="./brand.css?v=wave-room" />
+  <link rel="stylesheet" href="./controls.css" />
+  <main>
+    <header class="public-nav">
+      <a class="brand" href="#" aria-label="Materia home"
+        ><b class="brand-word">materia</b></a
+      >
+      <nav aria-label="Main navigation">
+        <a data-github aria-disabled="true" title="Repository link coming soon"
+          >GitHub · soon</a
+        >
+        <a href="#scenes">Demos</a
+        ><a href="#research">Playground</a
+        ><button id="showcase-motion" aria-pressed="false" aria-label="Pause motion" title="Pause motion"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path class="motion-pause" d="M4 3h2v10H4zm6 0h2v10h-2z"/><path class="motion-play" d="m5 3 8 5-8 5z"/></svg></button>
+      </nav>
+    </header>
+    <section class="showcase-hero" aria-label="Materia introduction">
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="hero-orbit" aria-hidden="true"></div>
+      <div class="hero-kicker">
+        INTERACTIVE TEXT EFFECTS / ZERO DEPENDENCIES
+      </div>
+      <div class="hero-type effect-host" data-scene="hero">
+        <h1>Beyond static.</h1>
+      </div>
+      <div class="hero-bottom">
+        <a class="hero-demo-link" href="#scenes">Explore the demos <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 4v16m-6-6 6 6 6-6"/></svg></a>
+      </div>
+    </section>
+    <section class="showcase" id="scenes" aria-label="Interactive effect demos">
+      <article class="scene scene-orbit">
+        <div class="scene-meta">
+          <span>01 / OBSERVATORY</span><span>OPTICS × TRANSMISSION</span>
+        </div>
+        <div class="planet" aria-hidden="true"></div>
+        <div class="orbit-line" aria-hidden="true"></div>
+        <div class="scene-title effect-host" data-scene="orbit">
+          <h2>Beyond the known.</h2>
+        </div>
+      </article>
+      <article class="scene scene-print">
+        <div class="scene-meta">
+          <span>02 / CULTURE IN FRAGMENTS</span
+          ><span>FRACTURE × SHOCKWAVE</span>
+        </div>
+        <div class="print-art" aria-hidden="true">
+          <i></i><i></i><i></i><i></i><i></i>
+        </div>
+        <div class="scene-title effect-host" data-scene="print">
+          <h2>BREAK FORM.</h2>
+        </div>
+      </article>
+      <article class="scene scene-frequency">
+        <div class="scene-meta">
+          <span>03 / LATE NIGHT TRANSMISSION</span
+          ><span>PLEATS × SCANLINES</span>
+        </div>
+        <div class="frequency-art" aria-hidden="true"></div>
+        <div class="scene-title effect-host" data-scene="frequency">
+          <h2>Feel the frequency.</h2>
+        </div>
+      </article>
+      <article class="scene scene-threshold">
+        <div class="scene-meta">
+          <span>04 / AT THE EDGE OF POSSIBILITY</span
+          ><span>REFRACTION × SIGNAL</span>
+        </div>
+        <div class="threshold-art" aria-hidden="true">
+          <i></i><i></i><i></i><i></i><i></i><i></i>
+          <div class="threshold-light"></div>
+        </div>
+        <div class="scene-title effect-host" data-scene="threshold">
+          <h2>Cross the threshold.</h2>
+        </div>
+      </article>
+      <article class="scene scene-play" id="play-scene">
+        <div class="scene-meta"><span>05 / THE PLAY DEPARTMENT</span><span>RUBBER TYPE × COLOUR</span></div>
+        <div class="play-shapes" aria-hidden="true"><i class="play-disc"></i><i class="play-arch"></i><i class="play-tile"></i><i class="play-dot"></i><i class="play-stripes"></i></div>
+        <div class="scene-title effect-host" data-scene="play"><h2>Make room for play.</h2></div>
+      </article>
+      <article class="scene scene-water">
+        <div class="reservoir-wall" aria-hidden="true"></div>
+        <div class="reservoir-pool" aria-hidden="true"></div>
+        <div class="reservoir-mist" aria-hidden="true"></div>
+        <div class="scene-title effect-host" data-scene="water">
+          <h2>Let it flow.</h2>
+        </div>
+      </article>
+    </section>
+    <div class="playground-heading" id="playground">
+      <span>THE OPEN LAB</span>
+      <h2>Now, make it yours.</h2>
+      <p>One canvas. Your words. Start with a preset, then make it your own.</p>
+    </div>
+    <section
+      class="research"
+      id="research"
+      aria-label="Experimental text bench"
+    >
+      <div class="studio-presets">
+        <label for="studio-preset">Preset</label
+        ><select id="studio-preset">
+          <option value="">Custom</option>
+          <option value="signature">Chromatic print</option>
+          <option value="rgb">Chromatic vortex</option>
+          <option value="pixel">Digital pleats</option>
+          <option value="print">Printed fracture</option>
+          <option value="water">Waterfall</option>
+          <option value="pure">Signal only</option></select
+        ><button id="studio-reset">Reset settings</button>
+      </div>
+      <div class="bench-layout">
+        <div class="bench" id="bench">
+          <div class="editor-preview">
+            <section class="toolbar" aria-label="Experiment controls">
+              <div class="field">
+                <label for="text">Your words</label
+                ><input
+                  type="text"
+                  id="text"
+                  value="Stay a little curious."
+                  maxlength="64"
+                />
+              </div>
+              <div class="field">
+                <span class="label">Typeface</span>
+                <div class="choices">
+                  <button data-font="serif" aria-pressed="true">Serif</button
+                  ><button data-font="sans" aria-pressed="false">Sans</button
+                  ><button data-font="korean" aria-pressed="false">한글</button>
+                </div>
+              </div>
+            </section>
+
+            <div class="bench-top">
+              <span class="mono" id="bench-family">OPTICS / 01</span>
+              <div class="bench-nav">
+                <button id="previous-study" aria-label="Previous experiment">
+                  ←</button
+                ><button id="next-study" aria-label="Next experiment">→</button
+                ><button id="surprise">✳ Surprise me</button>
+              </div>
+            </div>
+            <div
+              class="stage bench-stage"
+              tabindex="0"
+              role="group"
+              aria-label="Interactive text preview. Move your pointer to interact."
+            >
+              <h2 id="bench-text">Stay a little curious.</h2>
+            </div>
+            <div class="bench-description" aria-live="polite">
+              <div>
+                <h3 id="bench-name">Chromatic lens</h3>
+                <p id="bench-description"></p>
+              </div>
+              <button id="keep-study" aria-pressed="false">☆ Keep</button>
+            </div>
+            <p id="bench-hint"></p>
+            <div
+              id="element-states"
+              hidden
+              style="margin: 0 24px 18px"
+              role="group"
+              aria-label="Element state"
+            >
+              <button data-element-state="default" aria-pressed="true">
+                Default
+              </button>
+              <button data-element-state="consumed" aria-pressed="false">
+                Consumed
+              </button>
+              <p
+                style="
+                  font-size: 11px;
+                  line-height: 1.6;
+                  color: #aab7b8;
+                  margin: 9px 0 0;
+                "
+              >
+                Default keeps the letters intact. Consumed releases them into
+                the effect, then reforms.
+              </p>
+            </div>
+            <div class="bench-controls">
+              <label for="bench-strength"
+                >Strength <output id="bench-strength-label">80%</output
+                ><input
+                  id="bench-strength"
+                  type="range"
+                  min="0"
+                  max="100"
+                  value="80" /></label
+              ><label for="bench-scale"
+                >Scale <output id="bench-scale-label">10</output
+                ><input
+                  id="bench-scale"
+                  type="range"
+                  min="1"
+                  max="24"
+                  value="10" /></label
+              ><button id="bench-flow" aria-pressed="false">◌ Auto</button
+              ><button id="bench-freeze" aria-pressed="false">Ⅱ Freeze</button>
+            </div>
+          </div>
+          <section
+            id="layer-editor"
+            class="layer-editor"
+            aria-label="Effect layers"
+          >
+            <div class="layer-heading">
+              <div>
+                <span class="mono">YOUR EFFECTS</span>
+                <p>Drag the grip to reorder · Up to six effects.</p>
+              </div>
+            </div>
+            <ol id="layer-list"></ol>
+            <div id="layer-tools" hidden>
+              <div class="layer-add">
+                <button id="layer-add">+ Add layer</button>
+              </div>
+              <p>
+                Top → bottom. Water, smoke, glyphs, and physics remain
+                standalone.
+              </p>
+
+              <button id="layer-copy">Copy code</button>
+              <p id="layer-copy-status" role="status"></p>
+            </div>
+          </section>
+          <div class="bench-meta">
+            <span id="bench-technique"></span
+            ><span id="bench-engine">WEBGL / 1 PASS</span>
+          </div>
+        </div>
+      </div>
+      <details id="effect-browser">
+        <summary>
+          Browse all experiments
+          <span>Including water, smoke, physics, and glyphs</span>
+        </summary>
+        <div class="family-tabs" aria-label="Experiment families"></div>
+        <div
+          id="elements-intro"
+          hidden
+          style="
+            margin: 0 0 20px;
+            padding: 18px 20px;
+            border-left: 2px solid #8a9d8b;
+            background: #e2e5db;
+          "
+        >
+          <span class="mono">ELEMENTS / SMOKE · WATER · WIND · FIRE</span>
+          <p style="margin: 9px 0 0; font-size: 13px; line-height: 1.6">
+            Living bodies and the matter they release. Water falls, flames rise,
+            wind bends, smoke drifts. Water, fire, wind, and smoke flow
+            continuously; move or touch to steer, Freeze to pause.
+          </p>
+        </div>
+        <div class="catalog">
+          <div class="catalog-top">
+            <span class="mono">SPECIMENS</span
+            ><span id="catalog-count">46</span>
+          </div>
+          <div id="experiment-list"></div>
+        </div>
+      </details>
+      <p class="research-note">
+        <a href="./package-demo.html">Developer API example ↗</a>
+      </p>
+    </section>
+
+    <section class="performance-section" id="performance" aria-labelledby="performance-title">
+      <div class="performance-heading"><span class="hero-kicker">SMALL FOOTPRINT / MEASURED IN THE BROWSER</span><h2 id="performance-title">Less weight. More possibility.</h2><p>Import the effects you need. Keep the rest out of your build.</p></div>
+      <div class="performance-metrics">
+        <article><strong>6.1 <small>kB</small></strong><h3>One effect, runtime included</h3><p>RGB Split · minified + gzip</p></article>
+        <article><strong>6.9 <small>kB</small></strong><h3>A three-layer composition</h3><p>Vortex + Pixelate + RGB Split · gzip</p></article>
+        <article><strong>8.3 <small>ms</small></strong><h3>Median frame interval</h3><p>Three layers · browser scheduling</p></article>
+        <article><strong>0</strong><h3>Runtime dependencies</h3><p>Native browser APIs. Selective imports.</p></article>
+      </div>
+      <details class="performance-details"><summary>Measurements &amp; methodology</summary>
+        <div class="performance-table"><table><caption>Desktop browser sample · 4 November 2026</caption><thead><tr><th>Layers</th><th>Mount, median</th><th>Frame interval, p95</th><th>Update → frame, p95</th></tr></thead><tbody><tr><td>1</td><td>26.1 ms</td><td>8.5 ms</td><td>8.4 ms</td></tr><tr><td>3</td><td>28.7 ms</td><td>8.6 ms</td><td>8.5 ms</td></tr><tr><td>6</td><td>34.3 ms</td><td>9.3 ms</td><td>9.2 ms</td></tr></tbody></table></div>
+        <p>Chrome 156 on macOS; 1280 × 720 viewport, DPR 2, 800 × 240 text host. Accordion, Dither and RGB Split; 30 warm-up frames, 120 sampled intervals, five mounts and 30 updates per configuration. No intervals exceeded 25 ms in this run. Update calls were ≤ 0.1 ms at p95.</p>
+        <p>Frame intervals measure requestAnimationFrame scheduling, not GPU execution. Update latency measures a settings call to the next animation frame, not input-to-photon latency. These are local desktop observations, not mobile or production-network guarantees.</p>
+        <p>The isolated benchmark loaded in 47.7 ms (DOMContentLoaded: 46.9 ms) over localhost with browser caching enabled. This is a development baseline, not a cold-download estimate. Bundle sizes use esbuild minification and gzip; they exclude fonts, imagery and showcase code. kB = 1,000 bytes.</p>
+        <a href="./checks/performance.html">Run the benchmark on your device ↗</a>
+      </details>
+    </section>
+    <section class="maker-section" aria-label="About the creator">
+      <p class="hero-kicker">MADE BY MAXENCE</p>
+      <h2>Small libraries. Room to play.</h2>
+      <p>I build tools for a more expressive web. Materia brings text to life; Solids brings interactive 3D forms to the page.</p>
+      <nav aria-label="Projects by Maxence"><a href="https://github.com/mmaxence/materia">Materia · Living typography ↗</a><a href="https://mmaxence.github.io/solids/">Solids · Interactive 3D ↗</a><a href="https://mmaxence.github.io/">Meet Maxence ↗</a></nav>
+    </section>
+    <footer>
+      <span>Materia · Interactive text effects</span
+      ><span id="status">Native text · WebGL · No runtime dependencies</span>
+    </footer>
+  </main>
+  <script type="module" src="./app.js?v=curated"></script>
+  <script type="module" src="./showcase.js?v=water-sequence"></script>
+  <script type="module" src="./site-links.js"></script>
+  <script type="module" src="./brand.js?v=wave"></script>
+</html>

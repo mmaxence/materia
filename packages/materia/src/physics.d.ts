@@ -1,0 +1,11 @@
+import type { Effect } from "./index.js";
+export declare const looseAtoms: Effect;
+export declare const threadPull: Effect;
+export declare const magneticWell: Effect;
+export declare const orbitalCapture: Effect;
+export declare const softBodyMesh: Effect;
+export declare const shockwave: Effect;
+export declare const windTunnel: Effect;
+export declare const fallingGrains: Effect;
+export declare const gestureWake: Effect;
+export declare const slingshot: Effect;

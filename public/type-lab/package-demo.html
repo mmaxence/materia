@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Materia — developer API</title>
+    <link rel="stylesheet" href="./package-demo.css" />
+    <link rel="stylesheet" href="./brand.css?v=wave-room" />
+  <link rel="stylesheet" href="./controls.css" />
+  </head>
+  <body>
+    <header class="nav">
+      <a class="brand" href="./" aria-label="Materia home"
+        ><b class="brand-word">materia</b></a
+      >
+      <nav aria-label="Developer navigation">
+        <a href="./#playground">Playground ↗</a
+        ><a href="#reference">API reference</a
+        ><a data-github aria-disabled="true" title="Repository link coming soon"
+          >GitHub <span>soon ↗</span></a
+        >
+      </nav>
+    </header>
+    <main>
+      <section class="intro">
+        <div>
+          <p class="eyebrow">DEVELOPER EDITION / 0.1.0 ALPHA</p>
+          <h1>Ordinary text.<br /><em>Extraordinary behavior.</em></h1>
+          <p class="lead">
+            Keep your markup. Choose your effects. Give a heading a different
+            kind of presence.
+          </p>
+        </div>
+        <div class="facts">
+          <span>Zero runtime dependencies</span
+          ><span>Selective ES module imports</span
+          ><span>TypeScript declarations included</span
+          ><span>Accessible source text preserved</span>
+        </div>
+      </section>
+      <section id="try" aria-labelledby="try-title">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">01 / TRY THE API</p>
+            <h2 id="try-title">From preview to your project.</h2>
+          </div>
+          <p>Change the effect. The code follows.</p>
+        </div>
+        <div class="workspace">
+          <div class="preview">
+            <div class="controls">
+              <label>Effect<select id="effect"></select></label
+              ><label
+                >Words<input id="words" value="Make type move." maxlength="64"
+              /></label>
+            </div>
+            <div class="surface" id="surface">
+              <h2 id="heading" style="color: rgb(220, 235, 248)">
+                Make type move.
+              </h2>
+              <span class="surface-hint">MOVE TO INTERACT</span>
+            </div>
+            <div class="actions">
+              <label class="toggle"
+                ><input type="checkbox" id="signal" /> Add RGB split</label
+              ><button id="pulse">Disturb</button
+              ><button id="freeze" aria-pressed="false">Freeze</button
+              ><button id="destroy">Destroy</button
+              ><button id="mount">Mount</button>
+            </div>
+            <p id="status" role="status"></p>
+          </div>
+          <div class="code-panel">
+            <div class="code-head">
+              <span>YOUR IMPLEMENTATION <small>JavaScript</small></span
+              ><button id="copy">Copy code</button>
+            </div>
+            <pre><code id="snippet"></code></pre>
+            <p class="code-note">
+              Attach after the heading mounts. Call <code>destroy()</code> when
+              it unmounts.
+            </p>
+            <p id="copy-status" role="status"></p>
+          </div>
+        </div>
+      </section>
+      <section class="getting-started" aria-labelledby="install-title">
+        <div>
+          <p class="eyebrow">02 / BRING IT WITH YOU</p>
+          <h2 id="install-title">Small by choice.</h2>
+          <p>
+            Import a family or a single GPU effect. Your application only needs
+            the effects it uses. This preview loads every family so you can
+            explore them.
+          </p>
+          <p class="notice">Local alpha · not yet published to npm.</p>
+        </div>
+        <div class="install">
+          <span class="eyebrow">FROM THE REPOSITORY</span>
+          <pre><code>cd packages/materia
+npm install
+npm pack
+
+# In your application:
+npm install /path/to/materia-text-0.1.0-alpha.1.tgz</code></pre>
+          <p>
+            No stylesheet or font dependency. Supply your own typography and a
+            positioned host with room for the effect.
+          </p>
+        </div>
+      </section>
+      <section class="getting-started" aria-labelledby="stack-title">
+        <div>
+          <p class="eyebrow">ORDERED COMPOSITION</p>
+          <h2 id="stack-title">Build a layer stack.</h2>
+          <p>
+            Apply up to six optics, geometry, or signal effects in order. Each
+            layer processes the result before it. Adjust a layer without
+            rebuilding; remount a reordered stack when changing its structure.
+          </p>
+          <a href="./#layer-editor">Try the layer editor ↗</a>
+        </div>
+        <div class="install">
+          <pre><code>import { stack } from '@materia/text/stack';
+import { vortex } from '@materia/text/geometry/vortex';
+import { pixelate } from '@materia/text/signal/pixelate';
+import { rgbSplit } from '@materia/text/signal/rgbSplit';
+
+const fx = createTextEffect(heading, {
+  effect: stack([
+    { effect: vortex, strength: 0.7, scale: 12 },
+    { effect: pixelate, strength: 0.6, scale: 8 },
+    { effect: rgbSplit, strength: 0.5, scale: 14 },
+  ]),
+  auto: true,
+});
+fx.setLayer(1, { strength: 0.8 });</code></pre>
+          <p>
+            One canvas. Two reusable textures. Zero runtime dependencies. Water,
+            smoke, glyphs, and physics stay standalone.
+          </p>
+        </div>
+      </section>
+      <section id="reference">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">03 / THE ESSENTIALS</p>
+            <h2>A small, explicit API.</h2>
+          </div>
+          <p><code>createTextEffect(element, options)</code></p>
+        </div>
+        <div class="reference-grid">
+          <article>
+            <h3>Configure the effect</h3>
+            <dl>
+              <dt>effect</dt>
+              <dd>Required. An imported effect definition.</dd>
+              <dt>strength / scale</dt>
+              <dd>Intensity from 0–1; detail scale from 1–24.</dd>
+              <dt>signal</dt>
+              <dd>
+                Optional treatment layered on a GPU effect. Canvas families run
+                independently.
+              </dd>
+              <dt>signalStrength / signalScale</dt>
+              <dd>Adjust the signal separately from the base effect.</dd>
+              <dt>auto / frozen</dt>
+              <dd>Enable autonomous motion or hold a frame.</dd>
+              <dt>host / color</dt>
+              <dd>
+                Canvas bounds default to the parent. GPU color accepts RGB
+                values from 0–1.
+              </dd>
+              <dt>consumed / waterline</dt>
+              <dd>
+                Elemental consumption; waterfall pool height from 0.4–0.9.
+              </dd>
+            </dl>
+          </article>
+          <article>
+            <h3>Control its lifecycle</h3>
+            <dl>
+              <dt>pulse()</dt>
+              <dd>Trigger a disturbance.</dd>
+              <dt>setStrength(value) / setScale(value)</dt>
+              <dd>Tune the effect without remounting.</dd>
+              <dt>setAuto(bool) / setFrozen(bool)</dt>
+              <dd>Control motion and pause state.</dd>
+              <dt>setSignal(strength, scale?)</dt>
+              <dd>Adjust an attached signal.</dd>
+              <dt>setLayer(index, changes)</dt>
+              <dd>Update strength, scale, or enabled state in a stack.</dd>
+              <dt>setConsumed(bool)</dt>
+              <dd>Switch elemental consumption.</dd>
+              <dt>refresh() / supported</dt>
+              <dd>Refresh geometry; inspect renderer availability.</dd>
+              <dt>destroy()</dt>
+              <dd>
+                Release resources and restore original styles. Safe to call
+                again.
+              </dd>
+            </dl>
+          </article>
+        </div>
+        <div class="notes">
+          <p>
+            <strong>Browser mounted.</strong> Imports are SSR-safe. Create
+            effects on connected, plain-text elements in the browser.
+          </p>
+          <p>
+            <strong>Native fallback.</strong> Source text stays accessible.
+            Reduced motion and unavailable renderers fall back gracefully.
+          </p>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <span>MATERIA / TYPE WITH PRESENCE</span
+      ><a href="./#playground">Back to the studio ↗</a
+      ><a data-github aria-disabled="true" title="Repository link coming soon"
+        >GitHub · coming soon</a
+      >
+    </footer>
+    <script type="module" src="./package-demo.js"></script>
+    <script type="module" src="./site-links.js"></script>
+    <script type="module" src="./brand.js?v=wave"></script>
+  </body>
+</html>

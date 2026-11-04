@@ -1,0 +1,82 @@
+{
+  "date": "2026-11-04T02:10:35.961Z",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+  "dpr": 2,
+  "viewport": [
+    1280,
+    720
+  ],
+  "host": [
+    800,
+    240
+  ],
+  "samples": 120,
+  "warmupFrames": 30,
+  "results": [
+    {
+      "layers": 1,
+      "mountMs": {
+        "median": 26.1,
+        "p95": 59.5
+      },
+      "frameIntervalMs": {
+        "median": 8.3,
+        "p95": 8.5
+      },
+      "over25ms": 0,
+      "updateCallMs": {
+        "median": 0,
+        "p95": 0.1
+      },
+      "updateToFrameMs": {
+        "median": 8.3,
+        "p95": 8.4
+      }
+    },
+    {
+      "layers": 3,
+      "mountMs": {
+        "median": 28.7,
+        "p95": 30.3
+      },
+      "frameIntervalMs": {
+        "median": 8.3,
+        "p95": 8.6
+      },
+      "over25ms": 0,
+      "updateCallMs": {
+        "median": 0,
+        "p95": 0.1
+      },
+      "updateToFrameMs": {
+        "median": 8.3,
+        "p95": 8.5
+      }
+    },
+    {
+      "layers": 6,
+      "mountMs": {
+        "median": 34.3,
+        "p95": 35.4
+      },
+      "frameIntervalMs": {
+        "median": 8.3,
+        "p95": 9.3
+      },
+      "over25ms": 0,
+      "updateCallMs": {
+        "median": 0,
+        "p95": 0.1
+      },
+      "updateToFrameMs": {
+        "median": 8.4,
+        "p95": 9.2
+      }
+    }
+  ],
+  "navigation": {
+    "domContentLoadedMs": 46.9,
+    "loadMs": 47.7,
+    "transferBytes": 3337
+  }
+}

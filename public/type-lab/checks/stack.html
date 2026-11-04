@@ -1,0 +1,32 @@
+<!doctype html><html><title>Stack renderer checks</title><style>body{background:#101820;color:white;font:16px system-ui}.host{position:relative;height:220px;width:600px;display:grid;place-items:center}h1{font-size:65px}pre{white-space:pre-wrap}</style><div class="host"><h1>Layer test.</h1></div><pre id="result">Running…</pre><script type="module">
+import {createTextEffect} from '../lib/index.js';
+import {stack} from '../lib/stack.js';
+import * as optics from '../lib/optics.js';
+import * as geometry from '../lib/geometry.js';
+import * as signals from '../lib/signal.js';
+const heading=document.querySelector('h1'), result=document.querySelector('#result'), report=[];
+const frame=()=>new Promise(resolve=>requestAnimationFrame(resolve));
+function assert(value,message){if(!value)throw Error(message);}
+async function capture(fx){fx.pulse();await frame();const canvas=document.querySelector('canvas');const gl=canvas.getContext('webgl');const pixels=new Uint8Array(canvas.width*canvas.height*4);gl.readPixels(0,0,canvas.width,canvas.height,gl.RGBA,gl.UNSIGNED_BYTE,pixels);assert(gl.getError()===gl.NO_ERROR,'WebGL error');return pixels;}
+try {
+ for(const effect of Object.values({...optics,...geometry,...signals})){
+  const fx=createTextEffect(heading,{effect:stack([{effect:signals.rgbSplit},{effect},{effect:signals.pixelate}])});
+  assert(fx.supported,`${effect.name} compiled`);
+  const pixels=await capture(fx);assert(pixels.some((v,i)=>i%4===3&&v>0),`${effect.name} visible`);
+  fx.setLayer(1,{enabled:false});await capture(fx);fx.destroy();
+  assert(!document.querySelector('canvas'),'canvas cleaned');
+  assert(heading.style.color==='','source restored');report.push(`${effect.name}: PASS`);
+ }
+ const pair=[{effect:geometry.vortex,strength:1,scale:24},{effect:signals.pixelate,strength:1,scale:24}];
+ const a=createTextEffect(heading,{effect:stack(pair)});const before=await capture(a);a.destroy();
+ const b=createTextEffect(heading,{effect:stack([...pair].reverse())});const after=await capture(b);b.destroy();
+ const changed=before.reduce((sum,v,i)=>sum+(Math.abs(v-after[i])>20?1:0),0);
+ assert(changed>200,'reordering must change the rendered result');report.push(`Reordered output differs in ${changed} channels: PASS`);
+ const definition=stack(Array.from({length:6},(_,i)=>({effect:i%2?signals.rgbSplit:geometry.vortex})));
+ const fx=createTextEffect(heading,{effect:definition});assert(fx.supported,'six layers');await capture(fx);
+ heading.textContent='Changed text';await frame();await capture(fx);
+ for(let i=0;i<6;i++)fx.setLayer(i,{enabled:false});await capture(fx);fx.destroy();
+ report.push('Six-layer pipeline, text refresh, bypass, cleanup: PASS');
+ result.textContent=report.join('\n')+'\nALL CHECKS PASSED';
+}catch(error){result.textContent=report.join('\n')+'\nFAIL: '+error.stack;}
+</script></html>
