@@ -5,6 +5,6 @@ if (githubUrl) {
     link.href = githubUrl;
     link.removeAttribute("aria-disabled");
     link.removeAttribute("title");
-    link.textContent = "GitHub ↗";
+    link.textContent = "GitHub";
   }
 }
