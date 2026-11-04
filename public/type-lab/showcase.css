@@ -2284,3 +2284,7 @@ footer {
   .element-experiment-note span { display: block; }
   .scene-water *, .scene-water::before, .scene-water::after { animation: none !important; }
 }
+
+@media (pointer: coarse), (max-width: 767px) {
+  .scene-water, #elements-intro { display: none !important; }
+}

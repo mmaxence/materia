@@ -1,4 +1,3 @@
-import { nativeFallback } from "./renderer-utils.js";
 import { createLayerEditor } from "./layer-editor.js?v=six-layers";
 import { attach } from "./material.js?v=package-1";
 import { experiments as studies } from "./experiments.js";
@@ -34,9 +33,14 @@ const catalog = [
   })),
 ];
 // Curated browsing list. Renderers and package exports remain compatible.
+const mobile = matchMedia("(pointer: coarse), (max-width: 767px)").matches;
+if (mobile) {
+  document.querySelector('#studio-preset option[value="water"]')?.remove();
+  document.querySelector("#effect-browser > summary span").textContent = "Including optics, physics, and glyphs";
+}
 const omittedModes = new Set([2, 4, 6, 7, 45, 47, 52, 53, 57, 62]);
 const elementNames = new Map([[54, "Smoke"], [63, "Water"], [65, "Fire"], [66, "Wind"]]);
-const experiments = catalog.filter(effect => !omittedModes.has(effect.mode)).map(effect => ({
+const experiments = catalog.filter(effect => !omittedModes.has(effect.mode) && !(mobile && isElementMode(effect.mode))).map(effect => ({
   ...effect,
   name: elementNames.get(effect.mode) ?? effect.name,
   group: effect.mode === 46 ? "Physics" : effect.group,
@@ -138,7 +142,6 @@ function initializeBench() {
     mount(effect, count) {
       renderer?.destroy();
       renderer = effect.mount(heading, { color: [0.86, 0.92, 1] });
-      $("element-mobile-note").hidden = true;
       stacking = true;
       document.querySelector("#bench").classList.add("has-stack");
       $("studio-preset").value = "";
@@ -231,7 +234,7 @@ function initializeBench() {
       number.className = "number";
       number.textContent = String(experiments.indexOf(e) + 1).padStart(2, "0");
       const name = document.createElement("span");
-      name.textContent = e.name + (e.mode === 63 ? " · Desktop experiment" : "");
+      name.textContent = e.name + (isElementMode(e.mode) ? " · Experimental" : "");
       button.append(number, name);
       if (saved.has(e.mode)) {
         const star = document.createElement("span");
@@ -259,21 +262,16 @@ function initializeBench() {
       return;
     }
     $("studio-preset").value = "";
-    const mobile = matchMedia("(pointer: coarse), (max-width: 767px)").matches;
-    const desktopOnly = mobile && e.mode === 63;
-    $("element-mobile-note").hidden = !desktopOnly;
     const changedEngine =
-      stacking || !renderer || engineKey(e.mode) !== engineKey(current.mode) ||
-      (mobile && (e.mode === 63 || current.mode === 63));
+      stacking || !renderer || engineKey(e.mode) !== engineKey(current.mode);
     stacking = false;
     layerEditor.reset();
     document.querySelector("#bench").classList.remove("has-stack");
     current = e;
     if (changedEngine) {
       renderer?.destroy();
-      renderer = desktopOnly
-        ? nativeFallback(document.createElement("canvas"))
-        : e.mode >= 49 && e.mode !== 99
+      renderer =
+        e.mode >= 49 && e.mode !== 99
           ? attachTransformations(heading, { mode: e.mode })
           : e.mode >= 39 && e.mode !== 99
             ? attachParticles(heading, { mode: e.mode })
@@ -288,7 +286,7 @@ function initializeBench() {
       renderer.setFrozen(frozen);
     } else renderer.setMode(e.mode);
     const hasStates = isElementMode(e.mode);
-    document.querySelector("#element-states").hidden = !hasStates || desktopOnly;
+    document.querySelector("#element-states").hidden = !hasStates;
 
     renderer.setConsumed?.(consumed);
     document
@@ -336,6 +334,7 @@ function initializeBench() {
     "Glyphs",
     "Kept",
   ]) {
+    if (mobile && family === "Elements") continue;
     const button = document.createElement("button");
     button.textContent = family;
     button.dataset.family = family;

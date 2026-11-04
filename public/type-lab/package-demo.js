@@ -25,6 +25,7 @@ for (const [group, effects] of Object.entries({
   elements,
   glyphs,
 })) {
+  if (group === "elements" && matchMedia("(pointer: coarse), (max-width: 767px)").matches) continue;
   const optgroup = document.createElement("optgroup");
   optgroup.label = group;
   for (const name of Object.keys(effects)) {
