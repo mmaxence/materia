@@ -27,9 +27,9 @@ export function attachTransformations(element, options = {}) {
   if (!ctx || !fc || !bodyContext || !flameContext || !activeContext)
     return nativeFallback(canvas);
   const compact = matchMedia("(pointer: coarse)").matches;
-  const waterLimit = compact ? 120 : 420;
-  const rippleLimit = compact ? 20 : 64;
-  const waterStride = compact ? 6 : 2;
+  const waterLimit = compact ? 64 : 420;
+  const rippleLimit = compact ? 12 : 64;
+  const waterStride = compact ? 10 : 2;
   const reflectionStride = compact ? 9 : 3;
   let lastPaint = 0, pendingDt = 0;
   let consumptionProgress = null;
@@ -373,11 +373,11 @@ export function attachTransformations(element, options = {}) {
           0,
           y,
           w,
-          reflectionStride,
+          3,
           offset + wave,
           y + (mode === 56 ? band * 3 * k : 0),
           w,
-          reflectionStride,
+          3,
         );
       }
       fc.globalCompositeOperation = "source-in";
@@ -498,7 +498,7 @@ export function attachTransformations(element, options = {}) {
     fc.fillRect(0, 0, w, h);
     fc.globalCompositeOperation = "source-atop";
     fc.lineWidth = 1.2;
-    for (let band = 0; band < 12; band++) {
+    for (let band = 0; band < (compact ? 5 : 12); band++) {
       fc.strokeStyle = "rgba(232,254,255,.48)";
       fc.beginPath();
       for (let x = 0; x <= w; x += 8) {
@@ -588,7 +588,17 @@ export function attachTransformations(element, options = {}) {
       reflectionContext.clearRect(0, 0, reflection.width, reflection.height);
       reflectionContext.drawImage(canvas, 0, 0);
       const ratio = canvas.width / w;
-      for (let y = waterline + 2; y < h; y += reflectionStride) {
+      if (compact) {
+        // One mirrored composite replaces dozens of full-width strip draws.
+        ctx.save();
+        ctx.globalAlpha = 0.12;
+        ctx.translate(0, waterline * 1.42);
+        ctx.scale(1, -0.42);
+        ctx.drawImage(reflection, 0, 0, canvas.width, waterline * ratio,
+          0, 0, w, waterline);
+        ctx.restore();
+      }
+      for (let y = waterline + 2; !compact && y < h; y += reflectionStride) {
         const distance = y - waterline,
           sy = waterline - distance / 0.42;
         if (sy < 0) break;

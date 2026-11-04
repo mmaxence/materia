@@ -7,8 +7,11 @@ import * as signals from '../lib/signal.js';
 const heading=document.querySelector('h1'), result=document.querySelector('#result'), report=[];
 const frame=()=>new Promise(resolve=>requestAnimationFrame(resolve));
 function assert(value,message){if(!value)throw Error(message);}
-async function capture(fx){fx.pulse();await frame();const canvas=document.querySelector('canvas');const gl=canvas.getContext('webgl');const pixels=new Uint8Array(canvas.width*canvas.height*4);gl.readPixels(0,0,canvas.width,canvas.height,gl.RGBA,gl.UNSIGNED_BYTE,pixels);assert(gl.getError()===gl.NO_ERROR,'WebGL error');return pixels;}
+async function capture(fx){fx.pulse();await frame();const canvas=document.querySelector('canvas');const gl=canvas.getContext('webgl');const pixels=new Uint8Array(canvas.width*canvas.height*4);gl.readPixels(0,0,canvas.width,canvas.height,gl.RGBA,gl.UNSIGNED_BYTE,pixels);assert(gl.getError()===gl.NO_ERROR,'WebGL error');for(let i=0;i<pixels.length;i+=4){assert(pixels[i]<=pixels[i+3]+1&&pixels[i+1]<=pixels[i+3]+1&&pixels[i+2]<=pixels[i+3]+1,'output must be premultiplied, including transparent pixels');}return pixels;}
 try {
+ const single=createTextEffect(heading,{effect:geometry.accordion});
+ assert(single.supported,'single effect compiled');await capture(single);single.destroy();
+ report.push('Single-pass transparent output: PASS');
  for(const effect of Object.values({...optics,...geometry,...signals})){
   const fx=createTextEffect(heading,{effect:stack([{effect:signals.rgbSplit},{effect},{effect:signals.pixelate}])});
   assert(fx.supported,`${effect.name} compiled`);

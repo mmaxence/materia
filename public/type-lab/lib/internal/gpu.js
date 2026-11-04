@@ -59,7 +59,7 @@ export function attachGPU(element, options = {}) {
   host.append(canvas);
   const gl = canvas.getContext("webgl", {
     alpha: true,
-    premultipliedAlpha: false,
+    premultipliedAlpha: true,
     antialias: false,
   });
   if (!gl) return nativeFallback(canvas);
@@ -102,7 +102,15 @@ export function attachGPU(element, options = {}) {
       const program = gl.createProgram();
       const pass = { program, fs: null };
       passes.push(pass);
-      pass.fs = shader(gl.FRAGMENT_SHADER, fragment);
+      // Intermediate textures retain straight RGB for subsequent effects. Only
+      // the canvas presentation pass uses the compositor's premultiplied format.
+      const fragments = options.fragmentSources ?? [options.fragmentSource];
+      const presenting = passes.length === fragments.length;
+      const source = presenting
+        ? fragment.replace(/void\s+main\s*\(/, "void materiaMain(") +
+          "\nvoid main(){materiaMain();gl_FragColor.rgb *= gl_FragColor.a;}"
+        : fragment;
+      pass.fs = shader(gl.FRAGMENT_SHADER, source);
       gl.attachShader(program, vs);
       gl.attachShader(program, pass.fs);
       gl.bindAttribLocation(program, 0, "p");
