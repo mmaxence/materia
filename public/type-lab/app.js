@@ -1,3 +1,4 @@
+import { nativeFallback } from "./renderer-utils.js";
 import { createLayerEditor } from "./layer-editor.js?v=six-layers";
 import { attach } from "./material.js?v=package-1";
 import { experiments as studies } from "./experiments.js";
@@ -137,6 +138,7 @@ function initializeBench() {
     mount(effect, count) {
       renderer?.destroy();
       renderer = effect.mount(heading, { color: [0.86, 0.92, 1] });
+      $("element-mobile-note").hidden = true;
       stacking = true;
       document.querySelector("#bench").classList.add("has-stack");
       $("studio-preset").value = "";
@@ -229,7 +231,7 @@ function initializeBench() {
       number.className = "number";
       number.textContent = String(experiments.indexOf(e) + 1).padStart(2, "0");
       const name = document.createElement("span");
-      name.textContent = e.name;
+      name.textContent = e.name + (isElementMode(e.mode) ? " · Desktop experiment" : "");
       button.append(number, name);
       if (saved.has(e.mode)) {
         const star = document.createElement("span");
@@ -257,16 +259,21 @@ function initializeBench() {
       return;
     }
     $("studio-preset").value = "";
+    const mobile = matchMedia("(pointer: coarse), (max-width: 767px)").matches;
+    const desktopOnly = mobile && isElementMode(e.mode);
+    $("element-mobile-note").hidden = !desktopOnly;
     const changedEngine =
-      stacking || !renderer || engineKey(e.mode) !== engineKey(current.mode);
+      stacking || !renderer || engineKey(e.mode) !== engineKey(current.mode) ||
+      (mobile && (isElementMode(e.mode) || isElementMode(current.mode)));
     stacking = false;
     layerEditor.reset();
     document.querySelector("#bench").classList.remove("has-stack");
     current = e;
     if (changedEngine) {
       renderer?.destroy();
-      renderer =
-        e.mode >= 49 && e.mode !== 99
+      renderer = desktopOnly
+        ? nativeFallback(document.createElement("canvas"))
+        : e.mode >= 49 && e.mode !== 99
           ? attachTransformations(heading, { mode: e.mode })
           : e.mode >= 39 && e.mode !== 99
             ? attachParticles(heading, { mode: e.mode })
@@ -281,7 +288,7 @@ function initializeBench() {
       renderer.setFrozen(frozen);
     } else renderer.setMode(e.mode);
     const hasStates = isElementMode(e.mode);
-    document.querySelector("#element-states").hidden = !hasStates;
+    document.querySelector("#element-states").hidden = !hasStates || desktopOnly;
 
     renderer.setConsumed?.(consumed);
     document

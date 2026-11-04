@@ -178,6 +178,8 @@ motion.addEventListener("click", () => {
 const observer = new IntersectionObserver(
   (entries) => {
     for (const { target, isIntersecting } of entries) {
+      // Elements are desktop experiments; mobile retains the native title and photo.
+      if (target.dataset.scene === "water" && matchMedia("(pointer: coarse), (max-width: 767px)").matches) continue;
       if (isIntersecting && !active.has(target)) {
         const fx = createTextEffect(target.querySelector("h1, h2"), {
           ...recipes[target.dataset.scene],
