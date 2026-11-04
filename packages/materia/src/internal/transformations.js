@@ -16,7 +16,7 @@ export function attachTransformations(element, options = {}) {
   host.append(canvas);
   const ctx = canvas.getContext("2d"),
     field = document.createElement("canvas"),
-    fc = field.getContext("2d", { willReadFrequently: true }),
+    fc = field.getContext("2d"),
     reduced = matchMedia("(prefers-reduced-motion: reduce)");
   const readableBody = document.createElement("canvas"),
     bodyContext = readableBody.getContext("2d");
@@ -26,6 +26,12 @@ export function attachTransformations(element, options = {}) {
     activeContext = activeBody.getContext("2d");
   if (!ctx || !fc || !bodyContext || !flameContext || !activeContext)
     return nativeFallback(canvas);
+  const compact = matchMedia("(pointer: coarse)").matches;
+  const waterLimit = compact ? 120 : 420;
+  const rippleLimit = compact ? 20 : 64;
+  const waterStride = compact ? 6 : 2;
+  const reflectionStride = compact ? 9 : 3;
+  let lastPaint = 0, pendingDt = 0;
   let consumptionProgress = null;
   let consumed = false,
     cycle = 0,
@@ -85,7 +91,7 @@ export function attachTransformations(element, options = {}) {
     const box = host.getBoundingClientRect();
     w = Math.max(1, box.width);
     h = Math.max(1, box.height);
-    dpr = Math.min(devicePixelRatio, 1.5);
+    dpr = Math.min(devicePixelRatio, compact ? 1 : 1.5);
     canvas.width = Math.round(w * dpr);
     canvas.height = Math.round(h * dpr);
     raster = rasterize(element, host, 1);
@@ -215,7 +221,7 @@ export function attachTransformations(element, options = {}) {
           });
       }
       const released = Math.max(0, tile.opacity - opacity);
-      if (mode === 63 && water.length < 420 && Math.random() < released * 0.35)
+      if (mode === 63 && water.length < waterLimit && Math.random() < released * 0.35)
         water.push({
           x: tile.x,
           y: tile.y,
@@ -367,11 +373,11 @@ export function attachTransformations(element, options = {}) {
           0,
           y,
           w,
-          3,
+          reflectionStride,
           offset + wave,
           y + (mode === 56 ? band * 3 * k : 0),
           w,
-          3,
+          reflectionStride,
         );
       }
       fc.globalCompositeOperation = "source-in";
@@ -473,11 +479,11 @@ export function attachTransformations(element, options = {}) {
     // The water body remains readable, with moving refraction and highlights inside its mask.
     fc.setTransform(0.5, 0, 0, 0.5, 0, 0);
     fc.clearRect(0, 0, w, h);
-    for (let y = 0; y < h; y += 2) {
+    for (let y = 0; y < h; y += waterStride) {
       const bend =
         Math.sin(y * 0.085 + time * 2.2) * 1.3 +
         Math.sin(y * 0.19 - time * 1.4) * 0.6;
-      fc.drawImage(liveRaster, 0, y, w, 2, bend * strength, y, w, 2);
+      fc.drawImage(liveRaster, 0, y, w, waterStride, bend * strength, y, w, waterStride);
     }
     fc.globalCompositeOperation = "source-in";
     const body = fc.createLinearGradient(0, 0, w, h);
@@ -508,11 +514,11 @@ export function attachTransformations(element, options = {}) {
     fc.globalCompositeOperation = "source-over";
     ctx.drawImage(field, 0, 0, w, h);
     clearBody("water");
-    emission += dt * (15 + strength * 140);
+    emission += dt * (15 + strength * 140) * (compact ? .45 : 1);
     const sites = waterSites;
     while (emission >= 1) {
       emission--;
-      if (!sites.length || water.length >= 420) continue;
+      if (!sites.length || water.length >= waterLimit) continue;
       const source = sites[Math.floor(Math.random() * sites.length)];
       if (Math.random() > remaining(source.x, source.y)) continue;
       water.push({
@@ -529,7 +535,7 @@ export function attachTransformations(element, options = {}) {
     for (const p of water) {
       p.age += dt;
       p.trail.unshift([p.x, p.y]);
-      if (p.trail.length > Math.round(4 + detail * 0.6)) p.trail.pop();
+      if (p.trail.length > (compact ? 6 : Math.round(4 + detail * 0.6))) p.trail.pop();
       const influence = near(p.x, p.y) * Math.min(1, energy);
       const dx = p.x - point[0];
       p.vx += (influence * (velocity[0] * 0.6 + dx * 0.8) - p.vx * 0.7) * dt;
@@ -539,7 +545,7 @@ export function attachTransformations(element, options = {}) {
       p.y += p.vy * dt;
       if (p.y > waterline && !p.splash) {
         p.y = waterline;
-        if (pool !== null && ripples.length < 64)
+        if (pool !== null && ripples.length < rippleLimit)
           ripples.push({ x: p.x, y: waterline, age: 0, size: p.r });
         p.vy = -25 - Math.random() * 25;
         p.vx += (Math.random() - 0.5) * 90;
@@ -582,7 +588,7 @@ export function attachTransformations(element, options = {}) {
       reflectionContext.clearRect(0, 0, reflection.width, reflection.height);
       reflectionContext.drawImage(canvas, 0, 0);
       const ratio = canvas.width / w;
-      for (let y = waterline + 2; y < h; y += 3) {
+      for (let y = waterline + 2; y < h; y += reflectionStride) {
         const distance = y - waterline,
           sy = waterline - distance / 0.42;
         if (sy < 0) break;
@@ -594,11 +600,11 @@ export function attachTransformations(element, options = {}) {
           0,
           sy * ratio,
           canvas.width,
-          (3 / 0.42) * ratio,
+          (reflectionStride / 0.42) * ratio,
           shift,
           y,
           w,
-          3,
+          reflectionStride,
         );
       }
       for (const r of ripples) {
@@ -706,7 +712,7 @@ export function attachTransformations(element, options = {}) {
     if (!options.atmosphere) {
       fc.setTransform(0.5, 0, 0, 0.5, 0, 0);
       fc.clearRect(0, 0, w, h);
-      for (let y = 0; y < h; y += 2) {
+      for (let y = 0; y < h; y += waterStride) {
         const gust =
           Math.exp(-(((y - point[1]) / radius()) ** 2)) *
           velocity[0] *
@@ -787,6 +793,13 @@ export function attachTransformations(element, options = {}) {
   }
   function render(now, dt) {
     if (dead || !visible || document.hidden) return;
+    if (compact && isElement() && !reduced.matches) {
+      pendingDt += dt;
+      if (lastPaint && now - lastPaint < 32) return true;
+      dt = Math.min(pendingDt, .064);
+      pendingDt = 0;
+      lastPaint = now;
+    }
     time += dt;
     if (flow) {
       point = [
