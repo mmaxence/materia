@@ -32,6 +32,14 @@ export function layoutKey(element, host) {
     style.fontStyle,
     style.lineHeight,
     style.letterSpacing,
+    style.wordSpacing,
+    style.fontKerning,
+    style.fontStretch,
+    style.fontVariantCaps,
+    style.textRendering,
+    style.direction,
+    style.textAlign,
+    style.whiteSpace,
   ].join("|");
 }
 

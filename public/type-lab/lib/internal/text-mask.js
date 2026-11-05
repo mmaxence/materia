@@ -1,3 +1,22 @@
+// Canvas exposes only a subset of CSS typography; detect each optional property.
+export function applyTypography(ctx, style) {
+  ctx.font = `${style.fontStyle} ${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
+  ctx.textBaseline = "alphabetic";
+  ctx.textAlign = "left";
+  const stretches = { "50%": "ultra-condensed", "62.5%": "extra-condensed", "75%": "condensed", "87.5%": "semi-condensed", "100%": "normal", "112.5%": "semi-expanded", "125%": "expanded", "150%": "extra-expanded", "200%": "ultra-expanded" };
+  for (const key of ["fontKerning", "fontStretch", "fontVariantCaps", "textRendering", "direction"]) {
+    if (key in ctx && style[key]) ctx[key] = key === "fontStretch" ? stretches[style[key]] ?? style[key] : style[key];
+  }
+  let positioned = false;
+  for (const key of ["letterSpacing", "wordSpacing"]) {
+    const value = style[key] === "normal" ? "0px" : style[key] || "0px";
+    if (key in ctx) ctx[key] = value;
+    else if (parseFloat(value) !== 0) positioned = true;
+  }
+  // DOM-positioned graphemes must not receive Canvas spacing a second time.
+  if (positioned) for (const key of ["letterSpacing", "wordSpacing"]) if (key in ctx) ctx[key] = "0px";
+  return positioned;
+}
 // Browser layout remains authoritative; this raster is only a decorative twin.
 export function rasterize(element, host, dpr = 1) {
   const box = host.getBoundingClientRect();
@@ -8,12 +27,7 @@ export function rasterize(element, host, dpr = 1) {
     style = getComputedStyle(element);
   ctx.scale(dpr, dpr);
   ctx.fillStyle = "white";
-  ctx.font = `${style.fontStyle} ${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
-  ctx.textBaseline = "alphabetic";
-  const spacing = style.letterSpacing === "normal" ? "0px" : style.letterSpacing || "0px";
-  const nativeSpacing = "letterSpacing" in ctx;
-  if (nativeSpacing) ctx.letterSpacing = spacing;
-  const positionedGlyphs = !nativeSpacing && parseFloat(spacing) !== 0;
+  const positionedGlyphs = applyTypography(ctx, style);
   const node = element.firstChild;
   if (node?.nodeType === Node.TEXT_NODE) {
     const lines = [];

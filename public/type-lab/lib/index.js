@@ -44,7 +44,8 @@ export function createTextEffect(element, options = {}) {
   const host = options.host ?? element.parentElement;
   if (!host || host === element || !host.contains(element))
     throw new TypeError("host must be an ancestor of the text element.");
-  const color = resolveColor(options.color ?? getComputedStyle(element).color);
+  const color = resolveColor(typeof options.color === "string" && options.color.trim().toLowerCase() === "currentcolor"
+    ? getComputedStyle(element).color : options.color ?? getComputedStyle(element).color);
   const originalSpacing = element.style.getPropertyValue("letter-spacing");
   const spacingPriority = element.style.getPropertyPriority("letter-spacing");
   let ownsSpacing = false;
