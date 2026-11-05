@@ -10,6 +10,10 @@ export function rasterize(element, host, dpr = 1) {
   ctx.fillStyle = "white";
   ctx.font = `${style.fontStyle} ${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
   ctx.textBaseline = "alphabetic";
+  const spacing = style.letterSpacing === "normal" ? "0px" : style.letterSpacing || "0px";
+  const nativeSpacing = "letterSpacing" in ctx;
+  if (nativeSpacing) ctx.letterSpacing = spacing;
+  const positionedGlyphs = !nativeSpacing && parseFloat(spacing) !== 0;
   const node = element.firstChild;
   if (node?.nodeType === Node.TEXT_NODE) {
     const lines = [];
@@ -24,9 +28,10 @@ export function rasterize(element, host, dpr = 1) {
       if (!b.width) continue;
       let line = lines.find((l) => Math.abs(l.top - b.top) < 2);
       if (!line) {
-        line = { top: b.top, left: b.left, height: b.height, text: "" };
+        line = { top: b.top, left: b.left, height: b.height, text: "", glyphs: [] };
         lines.push(line);
       }
+      line.glyphs.push({ text: part.segment, left: b.left });
       line.text += part.segment;
       line.left = Math.min(line.left, b.left);
     }
@@ -36,11 +41,10 @@ export function rasterize(element, host, dpr = 1) {
         metrics.fontBoundingBoxAscent ?? parseFloat(style.fontSize) * 0.8;
       const descent =
         metrics.fontBoundingBoxDescent ?? parseFloat(style.fontSize) * 0.2;
-      ctx.fillText(
-        line.text,
-        line.left - box.left,
-        line.top - box.top + (line.height - ascent - descent) / 2 + ascent,
-      );
+      const baseline = line.top - box.top + (line.height - ascent - descent) / 2 + ascent;
+      if (positionedGlyphs) {
+        for (const glyph of line.glyphs) ctx.fillText(glyph.text, glyph.left - box.left, baseline);
+      } else ctx.fillText(line.text, line.left - box.left, baseline);
     }
   }
   return raster;

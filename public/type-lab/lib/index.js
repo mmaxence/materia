@@ -1,3 +1,4 @@
+import { resolveColor } from "./internal/color.js";
 import { boundedNumber } from "./internal/renderer-utils.js";
 // Import-safe on the server. Family modules own renderer and shader dependencies.
 const mounted = new WeakMap();
@@ -43,16 +44,24 @@ export function createTextEffect(element, options = {}) {
   const host = options.host ?? element.parentElement;
   if (!host || host === element || !host.contains(element))
     throw new TypeError("host must be an ancestor of the text element.");
+  const color = resolveColor(options.color ?? getComputedStyle(element).color);
+  const originalSpacing = element.style.getPropertyValue("letter-spacing");
+  const spacingPriority = element.style.getPropertyPriority("letter-spacing");
+  let ownsSpacing = false;
+  function applySpacing(value) {
+    const css = typeof value === "number" && Number.isFinite(value) ? `${value}px` : value;
+    if (typeof css !== "string" || !CSS.supports("letter-spacing", css))
+      throw new TypeError("letterSpacing must be a CSS length, normal, or a finite pixel value.");
+    element.style.setProperty("letter-spacing", css);
+    ownsSpacing = true;
+  }
+  function restoreSpacing() {
+    if (!ownsSpacing) return;
+    if (originalSpacing) element.style.setProperty("letter-spacing", originalSpacing, spacingPriority);
+    else element.style.removeProperty("letter-spacing");
+  }
+  if (options.letterSpacing !== undefined) applySpacing(options.letterSpacing);
   const releaseHost = acquireHost(host);
-  const cssColor = getComputedStyle(element).color.match(/[\d.]+/g);
-  const color =
-    options.color ??
-    (cssColor?.length >= 3
-      ? cssColor
-          .slice(0, 3)
-          .map(Number)
-          .map((v) => v / 255)
-      : undefined);
   let renderer;
   try {
     renderer = options.effect.mount(element, {
@@ -64,6 +73,7 @@ export function createTextEffect(element, options = {}) {
     });
   } catch (error) {
     releaseHost();
+    restoreSpacing();
     throw error;
   }
   let disposed = false,
@@ -92,6 +102,7 @@ export function createTextEffect(element, options = {}) {
       return renderer.supported;
     },
     refresh,
+    setLetterSpacing: safe((value) => { applySpacing(value); refresh(); }),
     setLayer: safe((index, changes) => {
       if (!renderer.setLayer)
         throw new Error("setLayer requires a stack effect.");
@@ -132,6 +143,7 @@ export function createTextEffect(element, options = {}) {
       observer.disconnect();
       renderer.destroy();
       releaseHost();
+      restoreSpacing();
       mounted.delete(element);
     },
   };

@@ -23,12 +23,15 @@ export interface TextEffectOptions {
   consumed?: boolean;
   /** Waterfall pool surface as a fraction of host height (0.4–0.9). Enables reflection and impact ripples. */
   waterline?: number;
-  /** GPU text color, RGB channels in 0–1. */
-  color?: [number, number, number];
+  /** GPU text color: CSS color (including OKLCH) or sRGB channels in 0–1. Alpha is not applied. */
+  color?: string | [number, number, number];
+  /** CSS letter spacing; numbers are pixels. Defaults to the element's CSS. */
+  letterSpacing?: string | number;
 }
 export interface TextEffectController {
   readonly supported: boolean;
   refresh(): void;
+  setLetterSpacing(value: string | number): void;
   setLayer(
     index: number,
     changes: { strength?: number; scale?: number; enabled?: boolean },

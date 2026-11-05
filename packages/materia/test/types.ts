@@ -30,3 +30,10 @@ composition.setLayer(0, { strength: .5, scale: 12, enabled: false });
 // @ts-expect-error layer strength is numeric
 composition.setLayer(0, { strength: 'strong' });
 composition.destroy();
+
+const typography = createTextEffect(document.createElement('h1'), {
+  effect: rgbSplit,
+  color: 'oklch(75% 0.15 250)',
+  letterSpacing: '0.04em',
+});
+typography.setLetterSpacing(-1);

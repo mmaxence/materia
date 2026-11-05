@@ -142,3 +142,31 @@ test("presentation cleanup restores exact inline color and priority", () => {
   assert.equal(element.style.getPropertyPriority("color"), "important");
   assert(!element.classList.contains("material-source"));
 });
+
+test("letter spacing refreshes the renderer and restores the original inline value", () => {
+  const original = Object.fromEntries(["document", "CSS", "getComputedStyle", "MutationObserver"].map(k => [k, globalThis[k]]));
+  const { element } = fixture();
+  element.style.setProperty("letter-spacing", "0.02em", "important");
+  let refreshes = 0;
+  globalThis.document = {};
+  globalThis.CSS = { supports: (name, value) => name === "letter-spacing" && /^(normal|-?[\d.]+(?:px|em))$/.test(value) };
+  globalThis.getComputedStyle = () => ({ position: "relative", color: "rgb(20,30,40)" });
+  globalThis.MutationObserver = class { observe() {} disconnect() {} };
+  const noop = () => {};
+  const effect = { mount: () => ({ refresh: () => refreshes++, destroy: noop, setIntensity: noop, setDetail: noop, setFlow: noop, setFrozen: noop }) };
+  try {
+    const fx = createTextEffect(element, { effect, letterSpacing: "0.1em" });
+    assert.equal(element.style.getPropertyValue("letter-spacing"), "0.1em");
+    fx.setLetterSpacing(-2);
+    assert.equal(element.style.getPropertyValue("letter-spacing"), "-2px");
+    assert.equal(refreshes, 1);
+    assert.throws(() => fx.setLetterSpacing(Infinity), TypeError);
+    fx.destroy();
+    assert.equal(element.style.getPropertyValue("letter-spacing"), "0.02em");
+    assert.equal(element.style.getPropertyPriority("letter-spacing"), "important");
+    fx.setLetterSpacing(4);
+    assert.equal(refreshes, 1);
+    assert.throws(() => createTextEffect(element, { effect: { mount() { throw Error("failed"); } }, letterSpacing: 8 }));
+    assert.equal(element.style.getPropertyValue("letter-spacing"), "0.02em");
+  } finally { Object.assign(globalThis, original); }
+});
