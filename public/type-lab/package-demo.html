@@ -7,20 +7,9 @@
     <link rel="stylesheet" href="./package-demo.css?v=family-20261109" />
     <link rel="stylesheet" href="./brand.css?v=wave-room" />
   <link rel="stylesheet" href="./controls.css" />
-  <script type="module" src="./product-nav.js?v=family-20261109"></script></head>
+  <script type="module" src="./product-nav.js?v=direct-links"></script><link rel="stylesheet" href="./family-nav.css?v=split-nav"></head>
   <body>
-    <header class="nav">
-      <a class="brand" href="./" aria-label="Materia home"
-        ><b class="brand-word">materia</b></a
-      >
-      <nav aria-label="Developer navigation"><product-navigation current="materia"></product-navigation>
-        <a href="./#playground">Playground </a
-        ><a href="#reference">API reference</a
-        ><a data-github aria-disabled="true" title="Repository link coming soon"
-          >GitHub <span>soon </span></a
-        >
-      </nav>
-    </header>
+    <header class="nav family-header"><div class="nav-left"><a class="brand" href="./" aria-label="Materia home"><b class="brand-word">materia</b></a><nav class="local-nav" aria-label="On this site"><a href="./#research">Playground</a><a href="#reference">API reference</a></nav></div><nav class="service-nav" aria-label="Products and source"><product-navigation current="materia"></product-navigation><a href="https://github.com/mmaxence/materia">GitHub</a></nav></header>
     <main>
       <section class="intro">
         <div>
