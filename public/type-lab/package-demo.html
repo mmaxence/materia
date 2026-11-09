@@ -7,17 +7,17 @@
     <link rel="stylesheet" href="./package-demo.css" />
     <link rel="stylesheet" href="./brand.css?v=wave-room" />
   <link rel="stylesheet" href="./controls.css" />
-  </head>
+  <script type="module" src="./product-nav.js"></script></head>
   <body>
     <header class="nav">
       <a class="brand" href="./" aria-label="Materia home"
         ><b class="brand-word">materia</b></a
       >
-      <nav aria-label="Developer navigation">
-        <a href="./#playground">Playground ↗</a
+      <nav aria-label="Developer navigation"><product-navigation current="materia"></product-navigation>
+        <a href="./#playground">Playground </a
         ><a href="#reference">API reference</a
         ><a data-github aria-disabled="true" title="Repository link coming soon"
-          >GitHub <span>soon ↗</span></a
+          >GitHub <span>soon </span></a
         >
       </nav>
     </header>
@@ -118,7 +118,7 @@ npm install /path/to/materia-text-0.1.0-alpha.1.tgz</code></pre>
             layer processes the result before it. Adjust a layer without
             rebuilding; remount a reordered stack when changing its structure.
           </p>
-          <a href="./#layer-editor">Try the layer editor ↗</a>
+          <a href="./#layer-editor">Try the layer editor </a>
         </div>
         <div class="install">
           <pre><code>import { stack } from '@materia/text/stack';
@@ -216,11 +216,11 @@ fx.setLayer(1, { strength: 0.8 });</code></pre>
     </main>
     <footer>
       <span>MATERIA / TYPE WITH PRESENCE</span
-      ><a href="./#playground">Back to the studio ↗</a
+      ><a href="./#playground">Back to the studio</a
       ><a data-github aria-disabled="true" title="Repository link coming soon"
         >GitHub · coming soon</a
       >
-    </footer>
+    <a href="https://mmaxence.me/">Meet Maxence</a></footer>
     <script type="module" src="./package-demo.js"></script>
     <script type="module" src="./site-links.js"></script>
     <script type="module" src="./brand.js?v=wave"></script>

@@ -13,18 +13,18 @@
 <script data-goatcounter="https://materia.goatcounter.com/count"
   data-goatcounter-settings='{"path":"/","referrer":"","no_events":true}'
   async src="https://gc.zgo.at/count.js" referrerpolicy="no-referrer"></script>
-  <main>
+  <script type="module" src="./product-nav.js"></script><main>
     <header class="public-nav">
       <a class="brand" href="#" aria-label="Materia home"
         ><b class="brand-word">materia</b></a
       >
-      <nav aria-label="Main navigation">
+      <nav aria-label="Main navigation"><product-navigation current="materia"></product-navigation>
         <a data-github aria-disabled="true" title="Repository link coming soon"
           >GitHub · soon</a
         >
         <a href="#scenes">Demos</a
         ><a href="#research">Playground</a
-        ><button id="showcase-motion" aria-pressed="false" aria-label="Pause motion" title="Pause motion"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path class="motion-pause" d="M4 3h2v10H4zm6 0h2v10h-2z"/><path class="motion-play" d="m5 3 8 5-8 5z"/></svg></button>
+        ><button id="showcase-motion" aria-pressed="false" aria-label="Pause motion" title="Pause motion"></button>
       </nav>
     </header>
     <section class="showcase-hero" aria-label="Materia introduction">
@@ -37,7 +37,7 @@
         <h1>Beyond static.</h1>
       </div>
       <div class="hero-bottom">
-        <a class="hero-demo-link" href="#scenes">Explore the demos <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 4v16m-6-6 6 6 6-6"/></svg></a>
+        <a class="hero-demo-link" href="#scenes">Explore the demos </a>
       </div>
     </section>
     <section class="showcase" id="scenes" aria-label="Interactive effect demos">
@@ -280,7 +280,7 @@
         </div>
       </details>
       <p class="research-note">
-        <a href="./package-demo.html">Developer API example ↗</a>
+        <a href="./package-demo.html">Developer API example </a>
       </p>
     </section>
 
@@ -297,14 +297,14 @@
         <p>Chrome 156 on macOS; 1280 × 720 viewport, DPR 2, 800 × 240 text host. Accordion, Dither and RGB Split; 30 warm-up frames, 120 sampled intervals, five mounts and 30 updates per configuration. No intervals exceeded 25 ms in this run. Update calls were ≤ 0.1 ms at p95.</p>
         <p>Frame intervals measure requestAnimationFrame scheduling, not GPU execution. Update latency measures a settings call to the next animation frame, not input-to-photon latency. These are local desktop observations, not mobile or production-network guarantees.</p>
         <p>The isolated benchmark loaded in 47.7 ms (DOMContentLoaded: 46.9 ms) over localhost with browser caching enabled. This is a development baseline, not a cold-download estimate. Bundle sizes use esbuild minification and gzip; they exclude fonts, imagery and showcase code. kB = 1,000 bytes.</p>
-        <a href="./checks/performance.html">Run the benchmark on your device ↗</a>
+        <a href="./checks/performance.html">Run the benchmark on your device </a>
       </details>
     </section>
     <section class="maker-section" aria-label="About the creator">
       <p class="hero-kicker">MADE BY MAXENCE</p>
       <h2>Small libraries. Room to play.</h2>
-      <p>I build tools for a more expressive web. Materia brings text to life; Solids brings interactive 3D forms to the page.</p>
-      <nav aria-label="Projects by Maxence"><a href="https://github.com/mmaxence/materia">Materia · Living typography ↗</a><a href="https://mmaxence.github.io/solids/">Solids · Interactive 3D ↗</a><a href="https://mmaxence.me/">Meet Maxence ↗</a></nav>
+      <p>I build tools for a more expressive web. Materia brings text to life; Solids brings interactive 3D forms to the page; Prisma adds texture and motion to images and video.</p>
+      <nav aria-label="Projects by Maxence"><a href="https://mmaxence.github.io/materia/">Materia · Living typography </a><a href="https://mmaxence.github.io/solids/">Solids · Interactive 3D </a><a href="https://mmaxence.github.io/prisma/">Prisma · Media effects </a><a href="https://mmaxence.me/">Meet Maxence </a></nav>
     </section>
     <footer>
       <span>Materia · Interactive text effects</span
