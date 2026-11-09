@@ -24,4 +24,4 @@ I build small tools for a more expressive web. **Materia** explores living typog
 
 ## Status
 
-Experimental alpha. Not published to npm. The code currently remains UNLICENSED; public source availability does not grant a redistribution license. A license must be chosen before an open-source release.
+Experimental alpha. Not published to npm. Library code is available under the MIT license; see [LICENSE](LICENSE).

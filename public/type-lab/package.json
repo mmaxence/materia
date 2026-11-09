@@ -1,0 +1,69 @@
+{
+  "name": "@materia/text",
+  "version": "0.1.0-alpha.1",
+  "description": "Dependency-free interactive text effects with selective family imports",
+  "type": "module",
+  "license": "MIT",
+  "sideEffects": false,
+  "files": [
+    "src",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "import": "./src/index.js"
+    },
+    "./optics": {
+      "types": "./src/optics.d.ts",
+      "import": "./src/optics.js"
+    },
+    "./optics/*": {
+      "types": "./src/optics/*.d.ts",
+      "import": "./src/optics/*.js"
+    },
+    "./geometry": {
+      "types": "./src/geometry.d.ts",
+      "import": "./src/geometry.js"
+    },
+    "./geometry/*": {
+      "types": "./src/geometry/*.d.ts",
+      "import": "./src/geometry/*.js"
+    },
+    "./signal": {
+      "types": "./src/signal.d.ts",
+      "import": "./src/signal.js"
+    },
+    "./signal/*": {
+      "types": "./src/signal/*.d.ts",
+      "import": "./src/signal/*.js"
+    },
+    "./physics": {
+      "types": "./src/physics.d.ts",
+      "import": "./src/physics.js"
+    },
+    "./elements": {
+      "types": "./src/elements.d.ts",
+      "import": "./src/elements.js"
+    },
+    "./glyphs": {
+      "types": "./src/glyphs.d.ts",
+      "import": "./src/glyphs.js"
+    },
+    "./stack": {
+      "types": "./src/stack.d.ts",
+      "import": "./src/stack.js"
+    }
+  },
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "size": "node scripts/size.mjs",
+    "sync-demo": "node scripts/sync-demo.mjs",
+    "prepack": "npm test && npm run typecheck",
+    "typecheck": "tsc --noEmit --strict --target es2022 --module nodenext --moduleResolution nodenext test/types.ts"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2",
+    "typescript": "5.9.3"
+  }
+}

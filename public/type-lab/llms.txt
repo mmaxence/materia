@@ -1,0 +1,14 @@
+# Materia
+
+> Experimental interactive text effects for the web, by Maxence Mauduit. Native ES modules, no runtime dependencies, accessible HTML source text.
+
+Alpha 0.1.0-alpha.1. Not published to npm. Library code is MIT licensed. Retain the [license notice](https://mmaxence.github.io/materia/LICENSE) when redistributing it.
+
+## Integration
+- [Agent integration guide](https://mmaxence.github.io/materia/agent-guide.md): direct-source usage and constraints.
+- [Complete package documentation](https://mmaxence.github.io/materia/api.md): options, all effect families, composition and lifecycle.
+- [Developer API page](https://mmaxence.github.io/materia/package-demo.html): examples and reference.
+- [Public types](https://mmaxence.github.io/materia/lib/index.d.ts): controller and options.
+- [Stack types](https://mmaxence.github.io/materia/lib/stack.d.ts): GPU effect composition.
+- [Package manifest](https://mmaxence.github.io/materia/package.json): exact version and export paths. Paths are package-relative; hosted sources are under lib/.
+- [Source repository](https://github.com/mmaxence/materia): source, tests and current licensing status.

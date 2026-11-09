@@ -3,7 +3,7 @@
   "version": "0.1.0-alpha.1",
   "description": "Dependency-free interactive text effects with selective family imports",
   "type": "module",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "sideEffects": false,
   "files": [
     "src",
