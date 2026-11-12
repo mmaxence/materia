@@ -1,4 +1,4 @@
-# Integrating Materia
+# Integrating Living Type
 
 Experimental alpha; not published to npm. Library code is MIT licensed; retain the [license notice](https://mmaxence.github.io/materia/LICENSE) when redistributing it.
 

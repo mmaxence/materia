@@ -1,4 +1,4 @@
-# Materia Text — experimental package
+# Living Type Text — experimental package
 
 Zero runtime dependencies. Native ES modules, TypeScript declarations, accessible source text, pointer interaction, reduced-motion fallback, and explicit cleanup. No CSS or font import is required.
 

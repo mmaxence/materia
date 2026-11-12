@@ -1,4 +1,4 @@
-# Materia
+# Living Type
 
 > Experimental interactive text effects for the web, by Maxence Mauduit. Native ES modules, no runtime dependencies, accessible HTML source text.
 
