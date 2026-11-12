@@ -62,7 +62,8 @@
     "prepack": "npm test && npm run typecheck",
     "typecheck": "tsc --noEmit --strict --target es2022 --module nodenext --moduleResolution nodenext test/types.ts",
     "check:docs": "node scripts/check-docs.mjs",
-    "check:examples": "node scripts/check-examples.mjs"
+    "check:examples": "node scripts/check-examples.mjs",
+    "check:recipes": "node scripts/check-recipes.mjs"
   },
   "devDependencies": {
     "esbuild": "0.28.2",

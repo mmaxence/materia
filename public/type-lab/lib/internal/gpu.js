@@ -286,7 +286,10 @@ export function attachGPU(element, options = {}) {
       pixels,
     );
     source.hide();
-    wake();
+    // A resize/raster refresh clears the buffer even while animation is frozen.
+    // Paint the updated words without scheduling another animation frame.
+    if (frozen) render(performance.now(), 0);
+    else wake();
   }
   function move(e) {
     if (frozen) return;
@@ -333,10 +336,12 @@ export function attachGPU(element, options = {}) {
   const observer = new IntersectionObserver(([entry]) => {
     visible = entry.isIntersecting;
     loop.block("offscreen", !visible);
+    if (visible && frozen) render(performance.now(), 0);
   });
   observer.observe(host);
   const visibility = () => {
     loop.block("hidden", document.hidden);
+    if (!document.hidden && frozen) render(performance.now(), 0);
   };
   document.addEventListener("visibilitychange", visibility);
   reduced.addEventListener("change", wake);

@@ -14,6 +14,7 @@ assert.equal(await read(new URL('LICENSE',site)),await read(new URL('LICENSE',ro
 let mirrored=0;
 for(const file of await files(new URL('src/',root))){assert.equal(await read(new URL('lib/'+file,site)),await read(new URL('src/'+file,root)),file+' source mirror differs');mirrored++;}
 for(const file of await files(new URL('examples/',root))){let expected=await read(new URL('examples/'+file,root));if(file.endsWith('.html'))expected=expected.replaceAll('../../src/','../../lib/').replaceAll('../../README.md','../../api.md');assert.equal(await read(new URL('examples/'+file,site)),expected,file+' example mirror differs');}
+const recipeGuide=await read(new URL('examples/recipes/guide.md',root));for(const title of ['Launch headline','Editorial emphasis','Navigation / CTA','Readable status','Data highlight','Kinetic poster','Localized long text','Text within spatial panels'])assert(recipeGuide.includes(title),title);
 const types=await read(new URL('src/index.d.ts',root));
 const controller=types.split('export interface TextEffectController {')[1].split('\n}')[0];
 const methods=[...controller.matchAll(/^\s+([A-Za-z]+)\(/gm)].map(x=>x[1]);
@@ -23,9 +24,9 @@ const snippets=[...api.matchAll(/```js\n([\s\S]*?)```/g)];
 for(const [,contents]of snippets)await build({stdin:{contents,resolveDir:fileURLToPath(root)},bundle:true,write:false,format:'esm',logLevel:'silent'});
 const guide=await read(new URL('agent-guide.md',site));
 for (const target of [...guide.matchAll(/\]\((\.[^)]+)\)/g)].map(x=>x[1])) await stat(new URL(target,site));
-for(const page of ['examples/minimal/index.html','examples/stack/index.html']){
+for(const page of ['examples/minimal/index.html','examples/stack/index.html','examples/recipes/index.html']){
  const html=await read(new URL(page,site));const map=JSON.parse(html.match(/<script type="importmap">([\s\S]*?)<\/script>/)[1]);
  for(const target of Object.values(map.imports))await read(new URL(target,new URL(page,site)));
  assert(!/fonts\.googleapis|stillwater|<img|https?:\/\//.test(html),'examples must use only local original content');
 }
-console.log(JSON.stringify({pass:true,version:pkg.version,mirroredSourceFiles:mirrored,documentedMethods:methods.length,compiledReadmeSnippets:snippets.length,sourceAndWebsiteExamples:2}));
+console.log(JSON.stringify({pass:true,version:pkg.version,mirroredSourceFiles:mirrored,documentedMethods:methods.length,compiledReadmeSnippets:snippets.length,sourceAndWebsiteExamples:3}));

@@ -54,9 +54,28 @@ In application code, destroy belongs in the client lifecycle cleanup, not immedi
 
 Runnable repository examples, excluded from the runtime tarball: `packages/materia/examples/minimal/` and `packages/materia/examples/stack/`. Serve the repository with `python3 -m http.server 4399` and open `/packages/materia/examples/minimal/`. Their import maps resolve local source; after `npm run sync-demo --prefix packages/materia`, the website copies live at `/examples/minimal/` and `/examples/stack/` under a server rooted at `public/type-lab`. No network media/fonts or showcase assets are used.
 
+## Eight practical use cases
+
+Run [the recipe gallery](examples/recipes/index.html) from the repository or synced site; use its selector or recipe hash. [Choice and ownership guide](examples/recipes/guide.md) explains the full presets, source semantics and validation. These are application recipes, not new effect names or library exports; they are excluded from the runtime tarball.
+
+| Job | Deliberate default | Keep native |
+| --- | --- | --- |
+| Launch headline | chromaticLens .35 / scale 12; replay, auto false | Heading and preview action |
+| Editorial emphasis | Same lens .14 / 16; a restrained preset | Blockquote, attribution and body copy |
+| Navigation / CTA | Same lens .22 / 12; native click/keyboard action | Button, label and guide details |
+| Readable status change | Same lens .12 / 16; one source update per action | Live status; no animated character announcements |
+| Data highlight | Standalone dither .16 / 14 | Named output with the actual illustrative value |
+| Kinetic poster | vortex + rgbSplit stack; auto true only here | Poster text, pause/native controls |
+| Localized long text | Short Korean title .12 / 16 | Long Korean/English paragraph; display text over 120 code points stays native |
+| Text within spatial panels | Lens .18 / 14 in real flat Space panels | Reading note, selection and source order |
+
+Choose one optic for readable short type, one signal for a print/sampling treatment, and a stack only when two ordered treatments are needed. Reusing a restrained lens consolidates overlapping choices rather than inventing aliases. Existing families/APIs stay available. Strength/scale, auto versus frozen and standalone/attached/stack signal controls retain their documented meanings below.
+
+The gallery owns one active child effect, explicit pause/native intent, content/font refresh, stale async-import/font guards and reverse-order cleanup. Reduced preference uses a stricter application-authored native alternative. Its pinned, licensed Space fixture is example-only and stays in compact/flat layout; it is not a Type package dependency, shared runtime, projected-pointer solution or device/composition certification. System fonts/original text only; the unresolved showcase photograph is untouched. Local recipes and generated site copies are not deployed evidence. Run npm run check:recipes after sync-demo to validate them.
+
 ## Motion, updates and cleanup
 
-`auto:false` disables automatic flow; pointer input or `pulse()` can still animate. `setFrozen(true)` explicitly freezes the renderer loop. Freeze does not promise that synchronous refresh/setters cannot paint a static frame. Keep an explicit user-pause choice separate from offscreen/hidden state; the renderer already observes visibility and live reduced-motion changes.
+`auto:false` disables automatic flow; pointer input or `pulse()` can still animate. `setFrozen(true)` explicitly freezes the renderer loop. Freeze does not promise that synchronous refresh/setters cannot paint a static frame. GPU refresh paints changed text/font/size while frozen without restarting animation, including when the host returns from hidden/offscreen state. Keep an explicit user-pause choice separate from offscreen/hidden state; the renderer already observes visibility and live reduced-motion changes.
 
 ```js
 import { createTextEffect } from '@materia/text';

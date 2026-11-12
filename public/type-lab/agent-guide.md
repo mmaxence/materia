@@ -55,3 +55,7 @@ Use source content with GPU unavailable and JS disabled; check actual font/line 
 Repository checks: npm test, npm run typecheck, npm run size, npm run sync-demo, npm run check:docs, npm run check:examples (from packages/materia). The latter needs local Chrome. Documentation/source mirrors can match locally while the live site remains older; no build command itself grants publication.
 
 Related Living Things libraries: [Living Object](https://mmaxence.github.io/solids/) (3D objects), [Living Frame](https://mmaxence.github.io/prisma/) (image/video effects), [Living Space](https://mmaxence.github.io/strata/) (spatial HTML). Their independent controllers are not automatic Type integrations.
+
+## Eight practical recipes (local candidate)
+
+[Recipe gallery](./examples/recipes/index.html) · [Choice/ownership guide](./examples/recipes/guide.md). Eight explicit jobs reuse restrained effects rather than introducing aliases. One active Type controller; semantic actions/status/output; long copy stays native; reduced/native intent, fonts, asynchronous loads and cleanup are owned by the application. The spatial case uses a pinned licensed Space snapshot in flat/compact layout only, outside the Type runtime tarball. No projected composition, device, registry or live-publication claim. Use npm run check:recipes after syncing.

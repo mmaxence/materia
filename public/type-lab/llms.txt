@@ -5,6 +5,7 @@
 Alpha 0.1.0-alpha.1. Not published to npm. Library code is MIT licensed. Retain the [license notice](https://mmaxence.github.io/materia/LICENSE) when redistributing it.
 
 ## Integration
+- [Eight practical recipes](https://mmaxence.github.io/materia/examples/recipes/guide.md): local candidate choice guide, runnable gallery, semantics/fonts/static ownership; not published/live parity evidence.
 - [Agent integration guide](https://mmaxence.github.io/materia/agent-guide.md): delivery paths, lifecycle, fallback and unsupported integrations.
 - [Complete package documentation](https://mmaxence.github.io/materia/api.md): options, all effect families, composition and lifecycle.
 - [Runnable single effect](https://mmaxence.github.io/materia/examples/minimal/): explicit ownership, content updates, pause and cleanup; available after the corresponding source/site update.

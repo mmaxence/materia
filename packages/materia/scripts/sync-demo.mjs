@@ -9,7 +9,7 @@ const examples = new URL('../examples/',import.meta.url);
 const exampleTarget = new URL('../../../public/type-lab/examples/',import.meta.url);
 await rm(exampleTarget,{recursive:true,force:true});
 await cp(examples,exampleTarget,{recursive:true});
-for (const name of ['minimal','stack']) {
+for (const name of ['minimal','stack','recipes']) {
   const file = new URL(name+'/index.html',exampleTarget);
   await writeFile(file,(await readFile(file,'utf8')).replaceAll('../../src/','../../lib/').replaceAll('../../README.md','../../api.md'));
 }

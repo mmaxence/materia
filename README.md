@@ -11,6 +11,8 @@ Interactive text effects for the web. Zero runtime dependencies, selective impor
 
 The [versioned package contract](packages/materia/README.md) and [agent guide](public/type-lab/agent-guide.md) cover source/local tarballs, public exports, cleanup and native fallback. Asset-free runnable examples live in [minimal](packages/materia/examples/minimal/index.html) and [stack](packages/materia/examples/stack/index.html). Serve this repository with `python3 -m http.server 4399` to open those source paths. The runtime package excludes the examples and showcase assets. Local documentation updates are not automatically deployed.
 
+[Eight practical recipes](packages/materia/examples/recipes/index.html) and their [choice/ownership guide](packages/materia/examples/recipes/guide.md) cover headlines, editorial, CTA, status, data, poster, localized copy and flat spatial panels. Local only; no publication implied.
+
 ## Develop
 
 ```sh
@@ -20,6 +22,7 @@ npm run typecheck --prefix packages/materia
 npm run sync-demo --prefix packages/materia
 npm run check:docs --prefix packages/materia
 npm run check:examples --prefix packages/materia # needs Chrome; set CHROME if required
+npm run check:recipes --prefix packages/materia  # all eight use cases / local consumers
 python3 packages/materia/scripts/serve-demo.py
 ```
 
