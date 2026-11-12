@@ -85,7 +85,7 @@ Run `npm run size` for reproducible minified + gzip **consumer bundle** measurem
 
 Tests cover scheduling, physics stability, numeric bounds, SSR imports, export resolution, and selective bundling. `npm run typecheck` checks public declarations. Real-device FPS, battery use, and long-session heap profiling are not yet established.
 
-Browser baseline: modern ESM-capable browsers with Canvas 2D/WebGL 1, ResizeObserver, IntersectionObserver, MutationObserver, and Intl.Segmenter. Unsupported WebGL falls back to native text. Current text rasterization supports plain text; nested markup, arbitrary letter spacing, vertical writing, and complex bidi layouts are not supported. Each mounted GPU effect owns one context; avoid large numbers of simultaneous GPU headings.
+Browser baseline: modern ESM-capable browsers with Canvas 2D/WebGL 1, ResizeObserver, IntersectionObserver, MutationObserver, and Intl.Segmenter. Unsupported WebGL falls back to native text. Current text rasterization supports plain text. CSS letter spacing and the `letterSpacing` option are supported, with a positioned-glyph fallback when Canvas spacing APIs are incomplete. Nested markup, vertical writing, and complex bidi layouts remain unsupported; verify the fonts and scripts used by your page. Each mounted GPU effect owns one context; avoid large numbers of simultaneous GPU headings.
 
 ## Development source of truth
 
