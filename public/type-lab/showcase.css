@@ -2288,3 +2288,5 @@ footer {
 @media (pointer: coarse), (max-width: 767px) {
   .scene-water, #elements-intro { display: none !important; }
 }
+/* Shared family previews remain reachable on narrow screens. */
+@media(max-width:700px){.public-nav{flex-wrap:wrap;gap:16px}.public-nav>nav{width:100%;justify-content:space-between;gap:12px}}

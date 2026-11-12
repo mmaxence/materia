@@ -463,3 +463,4 @@ footer {
     scroll-behavior: auto;
   }
 }
+@media(max-width:700px){header{flex-wrap:wrap;gap:16px}header>nav{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px}}
