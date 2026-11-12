@@ -1,4 +1,6 @@
-# Materia — text-effect research bench
+# Living Type — research and showcase notes
+
+These are research/showcase implementation notes, not the public package contract. Use [api.md](api.md), [the agent guide](agent-guide.md) and the [minimal example](examples/minimal/) for supported integration. Showcase-only shaders, numeric modes and study counts are not additional exported effects.
 
 58 visible treatments: eight original materials, four Solids-inspired signal treatments, and 46 further experiments. Plain HTML text remains the layout and semantic source. The canvas is decorative.
 

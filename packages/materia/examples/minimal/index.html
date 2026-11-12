@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Living Type — One effect example</title><meta name="description" content="A connected heading, one decorative effect, explicit pause and cleanup."><link rel="stylesheet" href="../example.css"><script type="importmap">{"imports": {"@materia/text": "../../src/index.js", "@materia/text/optics/chromaticLens": "../../src/optics/chromaticLens.js"}}</script></head>
+<body><main data-example><a class="brand" href="../../"><span>Living</span>Type</a><h2>One effect</h2><p>A connected heading, one decorative effect, explicit pause and cleanup. Source/local package 0.1.0-alpha.1; no npm release is assumed.</p>
+<div class="specimen" data-host><h1 data-heading>Words with presence</h1></div>
+<label>Heading text <input data-copy value="Words with presence" maxlength="100"></label>
+<div class="controls"><button type="button" data-pulse>Disturb</button><button type="button" data-pause aria-pressed="false">Pause motion</button><button type="button" data-destroy>Destroy effect</button><button type="button" data-mount>Mount effect</button></div>
+<p role="status" aria-live="polite" data-status>Native source is readable before JavaScript runs.</p>
+<p class="note">The system motion preference is respected. Support reports initial renderer availability; later GPU loss restores source text. Destroy/remount to retry. This page uses original HTML/CSS and system fonts, with no media assets or telemetry.</p>
+<footer><a href="../../README.md">Package reference</a> · <a href="../stack/">Layer stack example</a></footer></main><script type="module" src="./main.js"></script></body></html>

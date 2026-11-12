@@ -60,7 +60,9 @@
     "size": "node scripts/size.mjs",
     "sync-demo": "node scripts/sync-demo.mjs",
     "prepack": "npm test && npm run typecheck",
-    "typecheck": "tsc --noEmit --strict --target es2022 --module nodenext --moduleResolution nodenext test/types.ts"
+    "typecheck": "tsc --noEmit --strict --target es2022 --module nodenext --moduleResolution nodenext test/types.ts",
+    "check:docs": "node scripts/check-docs.mjs",
+    "check:examples": "node scripts/check-examples.mjs"
   },
   "devDependencies": {
     "esbuild": "0.28.2",

@@ -5,8 +5,10 @@
 Alpha 0.1.0-alpha.1. Not published to npm. Library code is MIT licensed. Retain the [license notice](https://mmaxence.github.io/materia/LICENSE) when redistributing it.
 
 ## Integration
-- [Agent integration guide](https://mmaxence.github.io/materia/agent-guide.md): direct-source usage and constraints.
+- [Agent integration guide](https://mmaxence.github.io/materia/agent-guide.md): delivery paths, lifecycle, fallback and unsupported integrations.
 - [Complete package documentation](https://mmaxence.github.io/materia/api.md): options, all effect families, composition and lifecycle.
+- [Runnable single effect](https://mmaxence.github.io/materia/examples/minimal/): explicit ownership, content updates, pause and cleanup; available after the corresponding source/site update.
+- [Runnable layer stack](https://mmaxence.github.io/materia/examples/stack/): two-layer setLayer updates; available after the corresponding source/site update.
 - [Developer API page](https://mmaxence.github.io/materia/package-demo.html): examples and reference.
 - [Public types](https://mmaxence.github.io/materia/lib/index.d.ts): controller and options.
 - [Stack types](https://mmaxence.github.io/materia/lib/stack.d.ts): GPU effect composition.

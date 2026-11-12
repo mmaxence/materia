@@ -25,7 +25,7 @@
     <main>
       <section class="intro">
         <div>
-          <p class="eyebrow">DEVELOPER EDITION / 0.1.0 ALPHA</p>
+          <p class="eyebrow">DEVELOPER EDITION / 0.1.0-alpha.1</p>
           <h1>Ordinary text.<br /><em>Extraordinary behavior.</em></h1>
           <p class="lead">
             Keep your markup. Choose your effects. Give a heading a different
@@ -45,7 +45,7 @@
             <p class="eyebrow">01 / TRY THE API</p>
             <h2 id="try-title">From preview to your project.</h2>
           </div>
-          <p>Change the effect. The code follows.</p>
+          <p>Change the effect. The code follows. <a href="./examples/minimal/">Runnable minimal example</a> · <a href="./examples/stack/">Stack example</a></p>
         </div>
         <div class="workspace">
           <div class="preview">
@@ -166,11 +166,10 @@ fx.setLayer(1, { strength: 0.8 });</code></pre>
               <dt>signalStrength / signalScale</dt>
               <dd>Adjust the signal separately from the base effect.</dd>
               <dt>auto / frozen</dt>
-              <dd>Enable autonomous motion or hold a frame.</dd>
+              <dd>Automatic flow and explicit freeze are separate; disabling auto still allows pointer/pulse motion.</dd>
               <dt>host / color</dt>
               <dd>
-                Canvas bounds default to the parent. GPU color accepts RGB
-                values from 0–1.
+                Canvas bounds default to the parent. GPU color accepts CSS colors or RGB values from 0–1, resolved at mount.
               </dd>
               <dt>consumed / waterline</dt>
               <dd>
@@ -186,15 +185,17 @@ fx.setLayer(1, { strength: 0.8 });</code></pre>
               <dt>setStrength(value) / setScale(value)</dt>
               <dd>Tune the effect without remounting.</dd>
               <dt>setAuto(bool) / setFrozen(bool)</dt>
-              <dd>Control motion and pause state.</dd>
+              <dd>Control automatic flow and explicit freeze separately; static refresh may still draw.</dd>
               <dt>setSignal(strength, scale?)</dt>
               <dd>Adjust an attached signal.</dd>
               <dt>setLayer(index, changes)</dt>
               <dd>Update strength, scale, or enabled state in a stack.</dd>
+              <dt>setLetterSpacing(value)</dt><dd>Update source spacing and refresh; restore it at cleanup.</dd>
+              <dt>setWaterline(value) / setConsumptionProgress(value)</dt><dd>Elemental controls; pool setter clamps 0.4–0.95. Initial pool option remains 0.4–0.9.</dd>
               <dt>setConsumed(bool)</dt>
               <dd>Switch elemental consumption.</dd>
               <dt>refresh() / supported</dt>
-              <dd>Refresh geometry; inspect renderer availability.</dd>
+              <dd>Refresh geometry; inspect initial renderer availability. Later GPU loss restores native text without changing supported.</dd>
               <dt>destroy()</dt>
               <dd>
                 Release resources and restore original styles. Safe to call
@@ -210,7 +211,7 @@ fx.setLayer(1, { strength: 0.8 });</code></pre>
           </p>
           <p>
             <strong>Native fallback.</strong> Source text stays accessible.
-            Reduced motion and unavailable renderers fall back gracefully.
+            Reduced motion settles decorative motion; unavailable renderers keep native text. After GPU loss, destroy/remount to retry.
           </p>
         </div>
       </section>

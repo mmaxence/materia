@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Living Type — Two layers example</title><meta name="description" content="An ordered geometry and signal stack, edited through the public controller."><link rel="stylesheet" href="../example.css"><script type="importmap">{"imports": {"@materia/text": "../../src/index.js", "@materia/text/stack": "../../src/stack.js", "@materia/text/geometry/vortex": "../../src/geometry/vortex.js", "@materia/text/signal/rgbSplit": "../../src/signal/rgbSplit.js"}}</script></head>
+<body><main data-example><a class="brand" href="../../"><span>Living</span>Type</a><h2>Two layers</h2><p>An ordered geometry and signal stack, edited through the public controller. Source/local package 0.1.0-alpha.1; no npm release is assumed.</p>
+<div class="specimen" data-host><h1 data-heading>Words with presence</h1></div>
+<label>Heading text <input data-copy value="Words with presence" maxlength="100"></label>
+<div class="controls"><button type="button" data-pulse>Disturb</button><button type="button" data-pause aria-pressed="false">Pause motion</button><button type="button" data-destroy>Destroy effect</button><button type="button" data-mount>Mount effect</button></div>
+<label>Signal strength <input data-layer type="range" min="0" max="1" step="0.05" value="0.3"></label><p role="status" aria-live="polite" data-status>Native source is readable before JavaScript runs.</p>
+<p class="note">The system motion preference is respected. Support reports initial renderer availability; later GPU loss restores source text. Destroy/remount to retry. This page uses original HTML/CSS and system fonts, with no media assets or telemetry.</p>
+<footer><a href="../../README.md">Package reference</a> · <a href="../minimal/">One effect example</a></footer></main><script type="module" src="./main.js"></script></body></html>
