@@ -1,4 +1,7 @@
-# Materia
+# Living Type
+
+Part of **Living Things — Libraries for a living web**. Formerly **Materia**. Existing repository URLs, package names, imports and APIs remain unchanged.
+
 
 Interactive text effects for the web. Zero runtime dependencies, selective imports, and a visual layer editor.
 
@@ -18,10 +21,14 @@ Open http://127.0.0.1:4399/. GitHub Pages serves `public/type-lab` through Actio
 
 ## By Maxence
 
-I build small tools for a more expressive web. **Materia** explores living typography; **[Solids](https://mmaxence.github.io/solids/)** brings lightweight interactive 3D forms to the browser.
+I build small tools for a more expressive web. **Living Type** explores living typography; **[Living Object](https://mmaxence.github.io/solids/)** brings lightweight interactive 3D forms to the browser.
 
 [Personal site](https://mmaxence.me/) · [GitHub](https://github.com/mmaxence)
 
 ## Status
 
-Experimental alpha. Not published to npm. The code currently remains UNLICENSED; public source availability does not grant a redistribution license. A license must be chosen before an open-source release.
+Experimental alpha. Not published to npm.
+
+## License
+
+Living Type source code and documentation are licensed under the [MIT License](LICENSE), copyright (c) 2026 Maxence Mauduit. See [asset and dependency notices](NOTICES.md) for exclusions and separately licensed materials.

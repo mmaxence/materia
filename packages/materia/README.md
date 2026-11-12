@@ -1,8 +1,8 @@
-# Materia Text — experimental package
+# Living Type Text — experimental package
 
 Zero runtime dependencies. Native ES modules, TypeScript declarations, accessible source text, pointer interaction, reduced-motion fallback, and explicit cleanup. No CSS or font import is required.
 
-`@materia/text` is a provisional local package name, **not published to npm**. This alpha uses `UNLICENSED` until its owner chooses distribution terms.
+`@materia/text` is a provisional local package name, **not published to npm**. The library is licensed under the [MIT License](LICENSE), copyright (c) 2026 Maxence Mauduit.
 
 ## Try the local package
 

@@ -3,7 +3,7 @@
   <meta charset="utf-8" /><meta
     name="viewport"
     content="width=device-width,initial-scale=1"
-  /><title>Materia — interactive text effects</title>
+  /><meta name="description" content="Living Type, formerly Materia: interactive typography and text effects. Part of Living Things — Libraries for a living web."><title>Living Type — interactive text effects</title>
   <link rel="stylesheet" href="./styles.css" />
   <link rel="stylesheet" href="./showcase.css?v=water-sequence" />
   <link rel="stylesheet" href="./brand.css?v=wave-room" />
@@ -13,12 +13,13 @@
 <script data-goatcounter="https://materia.goatcounter.com/count"
   data-goatcounter-settings='{"path":"/","referrer":"","no_events":true}'
   async src="https://gc.zgo.at/count.js" referrerpolicy="no-referrer"></script>
-  <main>
+  <link rel="stylesheet" href="./living-brand.css">
+<main>
     <header class="public-nav">
-      <a class="brand" href="#" aria-label="Materia home"
-        ><b class="brand-word">materia</b></a
+      <a class="brand living-brand" href="#" aria-label="Living Type home"
+        ><span class="living-block">Living</span> <b class="brand-word">Type</b></a
       >
-      <nav aria-label="Main navigation">
+      <nav aria-label="Main navigation"><product-navigation current="materia"></product-navigation>
         <a data-github aria-disabled="true" title="Repository link coming soon"
           >GitHub · soon</a
         >
@@ -27,7 +28,7 @@
         ><button id="showcase-motion" aria-pressed="false" aria-label="Pause motion" title="Pause motion"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path class="motion-pause" d="M4 3h2v10H4zm6 0h2v10h-2z"/><path class="motion-play" d="m5 3 8 5-8 5z"/></svg></button>
       </nav>
     </header>
-    <section class="showcase-hero" aria-label="Materia introduction">
+    <section class="showcase-hero" aria-label="Living Type introduction">
       <div class="hero-grid" aria-hidden="true"></div>
       <div class="hero-orbit" aria-hidden="true"></div>
       <div class="hero-kicker">
@@ -303,11 +304,12 @@
     <section class="maker-section" aria-label="About the creator">
       <p class="hero-kicker">MADE BY MAXENCE</p>
       <h2>Small libraries. Room to play.</h2>
-      <p>I build tools for a more expressive web. Materia brings text to life; Solids brings interactive 3D forms to the page.</p>
-      <nav aria-label="Projects by Maxence"><a href="https://github.com/mmaxence/materia">Materia · Living typography ↗</a><a href="https://mmaxence.github.io/solids/">Solids · Interactive 3D ↗</a><a href="https://mmaxence.me/">Meet Maxence ↗</a></nav>
+      <p>I build tools for a more expressive web. Living Type brings text to life; Living Object brings interactive 3D forms to the page.</p>
+      <nav aria-label="Projects by Maxence"><a href="https://github.com/mmaxence/materia">Living Type · Living typography ↗</a><a href="https://mmaxence.github.io/solids/">Living Object · Interactive 3D ↗</a><a href="https://mmaxence.me/">Meet Maxence ↗</a></nav>
     </section>
-    <footer>
-      <span>Materia · Interactive text effects</span
+    <p class="living-family-note">Living Things · Libraries for a living web</p>
+<footer>
+      <span>Living Type · Interactive text effects</span
       ><span id="status">Native text · WebGL · No runtime dependencies</span>
     </footer>
   </main>
@@ -316,3 +318,5 @@
   <script type="module" src="./site-links.js"></script>
   <script type="module" src="./brand.js?v=wave"></script>
 </html>
+
+<script type="module" src="./product-nav.js"></script>
